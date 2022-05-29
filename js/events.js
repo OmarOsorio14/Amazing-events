@@ -103,7 +103,6 @@ function filterCards() {
 	let data = [];
 	if (checkboxSelected.length > 0 && textSearch !== "") {
 		checkboxSelected.map(category => {
-			console.log(category);
 			data.push(...cards.filter(event => event.name.toLowerCase().includes(textSearch.trim().toLowerCase())  &&
                 event.category == category));
 		});

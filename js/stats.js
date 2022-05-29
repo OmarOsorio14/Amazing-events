@@ -17,7 +17,6 @@ async function putDataTable(){
 			FetchcurrentDate = json.currentDate;
 			let upcomingEvents = Fetchevents.filter(event => event.date > FetchcurrentDate);
 			let pastEvents = Fetchevents.filter(event => event.date < FetchcurrentDate);
-			console.log(pastEvents);
 			let attendancePercentage = getSortAttendancePercentage(pastEvents);
 			let LargerCapacities = getLargerCapacity(Fetchevents);
 			for (let i = 0; i < 3; i++) {
@@ -67,7 +66,6 @@ function fillTableByCategory(array, categories){
 		let revenues = 0;
 		let averageAssistance = 0;
 		let cont = 0;
-		console.log(category);
 		if(eventsByCategory.length != 0){
 			eventsByCategory.forEach( event =>{
 				let capacities = 0;
@@ -77,7 +75,6 @@ function fillTableByCategory(array, categories){
 				attendence += event.estimate ? event.estimate : event.assistance;
 				capacities += event.capacity;
 				averageAssistance += (attendence/capacities)*100;
-				console.log(averageAssistance);
 			});
 			templateHtml += `<tr>
 			<td>${category}</td>
