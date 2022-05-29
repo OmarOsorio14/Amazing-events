@@ -1,6 +1,12 @@
 let attendenceTable = document.getElementById("attendence-table");
 let upcomingEventsTable = document.getElementById("upcoming-events-statistics-table");
 let pastEventsTable = document.getElementById("past-events-statistics-table");
+
+const f = new Intl.NumberFormat("en-US", {
+	style: "currency",
+	currency: "USD",
+	minimumFractionDigits:2
+});
 async function putDataTable(){
 	let Fetchevents;
 	let FetchcurrentDate;
@@ -59,18 +65,24 @@ function fillTableByCategory(array, categories){
 	categories.forEach( category => {
 		let eventsByCategory = array.filter(event => event.category == category);
 		let revenues = 0;
-		let capacities = 0;
-		let attendence = 0;
+		let averageAssistance = 0;
+		let cont = 0;
+		console.log(category);
 		if(eventsByCategory.length != 0){
 			eventsByCategory.forEach( event =>{
+				let capacities = 0;
+				let attendence = 0;
+				cont++;
 				revenues += event.estimate ? event.price * event.estimate : event.price * event.assistance;
 				attendence += event.estimate ? event.estimate : event.assistance;
 				capacities += event.capacity;
+				averageAssistance += (attendence/capacities)*100;
+				console.log(averageAssistance);
 			});
 			templateHtml += `<tr>
 			<td>${category}</td>
-			<td><strong>$</strong>${revenues}</td>
-			<td>${((attendence/capacities)*100).toFixed(2)}%</td>
+			<td>${f.format(revenues/cont)}</td>
+			<td>${parseInt((averageAssistance/cont) * 100, 10) / 100}%</td>
 		</tr>
 `;
 		}
